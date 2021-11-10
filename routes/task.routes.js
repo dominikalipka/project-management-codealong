@@ -26,12 +26,12 @@ router.post("/tasks", (req, res, next) => {
 });
 
 // GET route => to retrieve a specific task
-router.get('/tasks/:taskId', (req, res, next) => {
+router.get("/projects/:projectId/tasks/:taskId", (req, res, next) => {
   const { taskId } = req.params;
- 
+
   Task.findById(taskId)
-    .then(task => res.json(task))
-    .catch(error => res.json(error));
+    .then((task) => res.json(task))
+    .catch((error) => res.json(error));
 });
  
 // PUT route => to update a specific task

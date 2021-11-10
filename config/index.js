@@ -1,3 +1,5 @@
+const cors = require("cors");
+
 // We reuse this import in order to have access to the `body` property in requests
 const express = require("express");
 
@@ -35,5 +37,15 @@ module.exports = (app) => {
   app.use(express.static(path.join(__dirname, "..", "public")));
 
   // Handles access to the favicon
-  app.use(favicon(path.join(__dirname, "..", "public", "images", "favicon.ico")));
+  app.use(
+    favicon(path.join(__dirname, "..", "public", "images", "favicon.ico"))
+  );
+
+  app.use(
+    cors({
+      credentials: true,
+      origin: ["http://localhost:3000"], // <== this will be the URL of our React app (it will be running on port 3000)
+    })
+  );
+  
 };

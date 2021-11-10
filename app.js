@@ -13,7 +13,27 @@ const express = require("express");
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 
+// Packages used for authentication (Session & Passport)
+const session = require('express-session');
+const passport = require('passport');
+
+// Passport initial setup
+require('./config/passport');
+
 const app = express();
+
+// Session settings: allows our app to maintain the sessions and our users in it
+app.use(
+  session({
+    secret: 'secret is rather a secret',
+    resave: true,
+    saveUninitialized: false
+  })
+);
+
+// To allow our app to use passport for auth
+app.use(passport.initialize());
+app.use(passport.session());
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
